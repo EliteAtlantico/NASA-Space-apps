@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Information Slideshow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Embedded CSS for Dark Mode Styling */
+        body, html {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #e0e0e0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        #main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+        .country-box {
+            margin: 15px;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            width: 200px;
+            height: 250px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+        }
+        .country-box img {
+            max-width: 100px;
+            max-height: 70px;
+            margin-bottom: 10px;
+        }
+        .country-box:hover {
+            background-color: #333;
+            transform: scale(1.05);
+        }
+        .country-detail {
+            display: none;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 8px;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .hidden {
+            display: none;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #333;
+            color: #e0e0e0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        button:hover {
+            background-color: #444;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="searchBar" placeholder="Search for a country..." onkeyup="filterCountries()" style="width: 50%; padding: 10px; margin: 20px auto; display: block; border-radius: 5px; border: 1px solid #333; background-color: #1e1e1e; color: #e0e0e0;">
+    <div id="notFoundMessage" style="display: none; text-align: center; color: #e0e0e0; margin: 20px; font-size: 1.2em;">The country does not exist in the website yet, or please enter an existing country.</div>
+    <div id="main">
+        <!-- Container for country boxes -->
+        <div class="country-box" onclick="showCountry('saudiArabia')">
+            <img src="https://flagcdn.com/w320/sa.png" alt="Saudi Arabia Flag">
+            <div>Saudi Arabia</div>
+        </div>
+        <div class="country-box" onclick="showCountry('bahrain')">
+            <img src="https://flagcdn.com/w320/bh.png" alt="Bahrain Flag">
+            <div>Bahrain</div>
+        </div>
+        <div class="country-box" onclick="showCountry('kuwait')">
+            <img src="https://flagcdn.com/w320/kw.png" alt="Kuwait Flag">
+            <div>Kuwait</div>
+        </div>
+        <div class="country-box" onclick="showCountry('lebanon')">
+            <img src="https://flagcdn.com/w320/lb.png" alt="Lebanon Flag">
+            <div>Lebanon</div>
+        </div>
+        <div class="country-box" onclick="showCountry('egypt')">
+            <img src="https://flagcdn.com/w320/eg.png" alt="Egypt Flag">
+            <div>Egypt</div>
+        </div>
+        <div class="country-box" onclick="showCountry('iran')">
+            <img src="https://flagcdn.com/w320/ir.png" alt="Iran Flag">
+            <div>Iran</div>
+        </div>
+        <div class="country-box" onclick="showCountry('iraq')">
+            <img src="https://flagcdn.com/w320/iq.png" alt="Iraq Flag">
+            <div>Iraq</div>
+        </div>
+        <div class="country-box" onclick="showCountry('jordan')">
+            <img src="https://flagcdn.com/w320/jo.png" alt="Jordan Flag">
+            <div>Jordan</div>
+        </div>
+        <div class="country-box" onclick="showCountry('oman')">
+            <img src="https://flagcdn.com/w320/om.png" alt="Oman Flag">
+            <div>Oman</div>
+        </div>
+        <div class="country-box" onclick="showCountry('qatar')">
+            <img src="https://flagcdn.com/w320/qa.png" alt="Qatar Flag">
+            <div>Qatar</div>
+        </div>
+        <div class="country-box" onclick="showCountry('syria')">
+            <img src="https://flagcdn.com/w320/sy.png" alt="Syria Flag">
+            <div>Syria</div>
+        </div>
+        <div class="country-box" onclick="showCountry('uae')">
+            <img src="https://flagcdn.com/w320/ae.png" alt="UAE Flag">
+            <div>UAE</div>
+        </div>
+        <div class="country-box" onclick="showCountry('yemen')">
+            <img src="https://flagcdn.com/w320/ye.png" alt="Yemen Flag">
+            <div>Yemen</div>
+        </div>
+        <div class="country-box" onclick="showCountry('turkey')">
+            <img src="https://flagcdn.com/w320/tr.png" alt="Turkey Flag">
+            <div>Turkey</div>
+        </div>
+        <div class="country-box" onclick="showCountry('palestine')">
+            <img src="https://flagcdn.com/w320/ps.png" alt="Palestine Flag">
+            <div>Palestine</div>
+        </div>
+        <div class="country-box" onclick="showCountry('algeria')">
+            <img src="https://flagcdn.com/w320/dz.png" alt="Algeria Flag">
+            <div>Algeria</div>
+        </div>
+        <div class="country-box" onclick="showCountry('morocco')">
+            <img src="https://flagcdn.com/w320/ma.png" alt="Morocco Flag">
+            <div>Morocco</div>
+        </div>
+        <div class="country-box" onclick="showCountry('libya')">
+            <img src="https://flagcdn.com/w320/ly.png" alt="Libya Flag">
+            <div>Libya</div>
+        </div>
+        <div class="country-box" onclick="showCountry('tunisia')">
+            <img src="https://flagcdn.com/w320/tn.png" alt="Tunisia Flag">
+            <div>Tunisia</div>
+        </div>
+        <div class="country-box" onclick="showCountry('afghanistan')">
+            <img src="https://flagcdn.com/w320/af.png" alt="Afghanistan Flag">
+            <div>Afghanistan</div>
+        </div>
+        <div class="country-box" onclick="showCountry('mauritania')">
+            <img src="https://flagcdn.com/w320/mr.png" alt="Mauritania Flag">
+            <div>Mauritania</div>
+        </div>
+    </div>
+
+    <!-- Country detail pages (hidden by default) -->
+    <div id="saudiArabia" class="country-detail hidden">
+        <button onclick="goBack()">← Back</button>
+        <h1>Saudi Arabia</h1>
+        <p>Weather Extremity: High – Saudi Arabia has an extremely arid climate characterized by very hot summers, with temperatures often reaching up to 50°C (122°F), particularly in inland regions. Winters are mild, averaging around 15-25°C (59-77°F). The extreme heat impacts agriculture, making it challenging to sustain crops without significant irrigation, and it also increases the demand for energy for cooling. The high temperatures pose risks to human health, particularly heat-related illnesses.</p>
+        <p>Air Quality: High – Air quality is heavily impacted by industrial emissions, vehicle exhaust, and frequent desert dust storms known as "shamal," particularly in urban centers such as Riyadh and Jeddah. Poor air quality can exacerbate respiratory conditions and reduce the quality of life for residents, particularly during dust storms.</p>
+        <p>Humidity: Low – The majority of the country experiences low humidity due to its desert climate, although coastal areas, such as along the Red Sea and Arabian Gulf, have significantly higher humidity, particularly during the summer months. Low humidity inland contributes to the arid conditions, impacting water resources, while high humidity along the coast can cause discomfort for residents.</p>
+        <p>Geography: Vast desert landscapes dominate Saudi Arabia, including the Rub' al Khali (Empty Quarter), the world's largest sand desert. There are also mountain ranges in the western regions, near the Red Sea coast. The expansive desert limits arable land, making agriculture difficult and increasing reliance on imports for food.</p>
+    </div>
+    <div id="bahrain" class="country-detail hidden">
+        <button onclick="goBack()">← Back</button>
+        <h1>Bahrain</h1>
+        <p>Weather Extremity: Medium – Bahrain has a desert climate, moderated by its coastal location. Summers are hot, with temperatures reaching up to 40°C (104°F), while winters are cooler, ranging from 15-20°C (59-68°F). The climate influences the limited freshwater resources in Bahrain, increasing reliance on desalination for water needs.</p>
+        <p>Air Quality: High – Vehicle emissions, industrial activity, and frequent dust from nearby deserts contribute to high air pollution, particularly in urban areas like Manama. This impacts public health, leading to respiratory problems and reduced air quality.</p>
+        <p>Humidity: High – Due to Bahrain's coastal location, the humidity is generally high throughout the year, particularly in the summer, with levels often exceeding 80%. High humidity exacerbates the heat, making outdoor work challenging and increasing energy consumption for cooling.</p>
+        <p>Geography: Bahrain is an archipelago composed of 33 natural islands. It features mostly low desert plains, with the highest point being the 134-meter Jabal ad-Dukhan, meaning "Mountain of Smoke." The geography limits available land for agriculture and urban expansion, leading to land reclamation efforts.</p>
+    </div>
+    <div id="kuwait" class="country-detail hidden">
+        <button onclick="goBack()">← Back</button>
+        <h1>Kuwait</h1>
+        <p>Weather Extremity: High – Kuwait's climate is characterized by extremely hot summers, where temperatures can rise above 50°C (122°F). The harsh summer heat makes outdoor activities challenging and can lead to increased heat-related illnesses. Winters are relatively short and mild, with temperatures ranging from 10-20°C (50-68°F). The extreme climate requires heavy use of air conditioning, leading to higher energy demand.</p>
+        <p>Air Quality: High – Industrial facilities, oil refineries, and frequent sandstorms contribute to high levels of air pollution, particularly during the summer months when dust storms are more frequent. Poor air quality affects the health of residents, particularly those with respiratory conditions.</p>
+        <p>Humidity: Medium – Coastal areas along the Arabian Gulf experience moderate to high humidity, particularly in the late summer, with humidity levels sometimes exceeding 90%, while inland areas remain arid and dry. High humidity near the coast can lead to discomfort and increased demand for cooling systems.</p>
+        <p>Geography: Kuwait consists mostly of desert plains with very little elevation change. The country’s landscape is dominated by flat and barren land, interspersed with occasional oil fields and low hills. The lack of natural water sources necessitates dependence on desalination for freshwater.</p>
+    </div>
+    <div id="lebanon" class="country-detail hidden">
+        <button onclick="goBack()">← Back</button>
+        <h1>Lebanon</h1>
+        <p>Weather Extremity: Medium – Lebanon experiences a Mediterranean climate with hot, dry summers averaging 25-30°C (77-86°F) and cool, wet winters, particularly in the coastal regions. The mountainous regions can see snowfall, especially between December and February. The climate supports diverse agriculture, particularly in the Beqaa Valley, which is essential for the country’s economy.</p>
+        <p>Humidity: Medium to High – Coastal areas like Beirut experience high humidity levels, especially in the summer months, while the mountainous regions tend to be cooler and less humid. High humidity in coastal areas can impact comfort levels and increase energy consumption for cooling.</p>
+        <p>Rainfall: High compared to other Middle Eastern countries, averaging 800-1,000 mm annually, with much of it concentrated in the winter months. The rainfall supports agriculture but also makes the region prone to flash floods in the mountainous areas.</p>
+        <p>Geography: Lebanon's geography includes the coastal plain, two parallel mountain ranges (Mount Lebanon and Anti-Lebanon), and the fertile Beqaa Valley in between, making it unique in the region. The varied geography provides opportunities for agriculture but also makes transportation challenging in some areas.</p>
+    </div>
+    <div id="egypt" class="country-detail hidden">
+        <button onclick="goBack()">← Back</button>
+        <h1>Egypt</h1>
+        <p>Weather Extremity: Medium – Egypt is largely arid, with the Sahara Desert covering most of the country. Summer temperatures frequently exceed 40°C (104°F), while winters are mild, particularly along the Nile River. The climate limits agricultural activity to areas near the Nile, making the river essential for irrigation and livelihoods.</p>
+        <p>Humidity: Low – The majority of Egypt has a dry desert climate, with low humidity levels except along the Mediterranean coast and the Nile Delta, where higher humidity is experienced. Low humidity reduces the risk of some pests but can contribute to dry conditions that affect agriculture.</p>
+        <p>Rainfall: Extremely low – Most of Egypt receives less than 20 mm of rain annually, except the coastal regions which receive around 200 mm per year. Limited rainfall makes Egypt highly dependent on the Nile for water resources, which is critical for agriculture and drinking water.</p>
+        <p>Geography: Dominated by the Nile River, which flows northward through a narrow valley and forms the fertile Nile Delta. To the west lies the vast Western Desert, and to the east is the rugged Eastern Desert, bordering the Red Sea. The reliance on the Nile makes water management and distribution a key challenge.</p>
+    </div>
+    <div id="iran" class="country-detail hidden">
+        <button onclick="goBack()">← Back</button>
+        <h1>Iran</h1>
+        <p>Weather Extremity: High – Iran has a diverse climate due to its varied geography. It experiences extreme heat in the central deserts, such as the Dasht-e Kavir, where summer temperatures can reach 50°C (122°F). In contrast, winters in the northern mountains can drop well below freezing, with heavy snowfall. The extreme climate creates challenges for agriculture, energy supply, and infrastructure maintenance.</p>
+        <p>Humidity: Low – Most of Iran experiences low humidity, especially in the central desert regions. Coastal areas along the Caspian Sea and the Persian Gulf have significantly higher humidity. Low humidity can make the interior deserts uninhabitable without significant irrigation.</p>
+        <p>Rainfall: Varies greatly – The northern regions along the Caspian Sea receive significant rainfall (up to 1,000 mm annually), while the central deserts receive very little, often less than 100 mm annually. The variability in rainfall results in water resource disparities across the country, affecting agriculture and water supply.</p>
+        <p>Geography: Iran’s geography includes deserts, mountains (e.g., Alborz and Zagros ranges), and coastal plains, creating a wide range of climates across the country. This geographic diversity supports varied agricultural activities but also poses logistical challenges for transport and development.</p>
+    </div>
+    <div id="iraq" class="country-detail hidden">
+        <button onclick="goBack()">← Back</button>
+        <h1>Iraq</h1>
+        <p>Weather Extremity: High – Iraq features a predominantly desert climate, with very hot summers, especially in the south, where temperatures can exceed 50°C (122°F). The extreme heat puts pressure on water resources and makes agriculture difficult without irrigation. Winters are relatively mild, with temperatures ranging from 5-15°C (41-59°F).</p>
+        <p>Humidity: Low – Humidity levels are generally low throughout the country, except near the Tigris and Euphrates rivers and the southern marshes, where humidity can be higher. The low humidity inland makes the climate more tolerable during the winter months.</p>
+        <p>Rainfall: Low – Annual rainfall is typically less than 250 mm, occurring mainly from November to April. The northern mountainous areas receive more precipitation, including snowfall in winter. Limited rainfall increases the country's dependency on the Tigris and Euphrates rivers for agriculture and water supply.</p>
+        <p>Geography: The landscape is dominated by desert and semi-desert plains, with the fertile Mesopotamian basin lying between the Tigris and Euphrates rivers, and mountainous regions in the north. Water management is a significant issue, particularly in maintaining the health of the marshlands.</p>
+    </div>
+    <div id="jordan" class="country-detail hidden">
+        <button onclick="goBack()">← Back</button>
+        <h1>Jordan</h1>
+        <p>Weather Extremity: Medium – Jordan has an arid to semi-arid climate, with hot summers (temperatures up to 40°C or 104°F) and cool winters. The climate limits agricultural productivity and makes water conservation a critical issue, particularly as Jordan is one of the world's most water-poor countries.</p>
+        <p>Humidity: Low – Most regions have low humidity, though the Jordan Valley and areas near the Dead Sea experience moderate humidity levels. Low humidity reduces the need for dehumidification but makes water loss through evaporation more pronounced.</p>
+        <p>Rainfall: Low – Annual rainfall ranges from 50 mm in desert areas to 500 mm in the highlands. Rain primarily occurs between November and March. The scarcity of rainfall makes water management a pressing concern, with significant investments in water conservation and desalination.</p>
+        <p>Geography: Jordan's geography includes the Jordan Rift Valley, the Dead Sea, which is the lowest point on Earth, and expansive desert plains that cover much of the country. The geography limits arable land, necessitating reliance on imported food and technological irrigation methods.</p>
+    </div>
+    <div id="oman" class="country-detail hidden">
+        <button onclick="goBack()">← Back</button>
+        <h1>Oman</h1>
+        <p>Weather Extremity: High – Oman has a hot desert climate, with summer temperatures ranging from 35-45°C (95-113°F). The extreme heat affects daily life, making it difficult to work outdoors during the summer. The coastal areas are humid, while the interior remains arid and extremely hot. Winters are more moderate, averaging 17-25°C (63-77°F).</p>
+        <p>Humidity: High – Coastal areas such as Muscat and Salalah experience high humidity, especially in the summer, while the interior remains much drier. High humidity affects the quality of life and necessitates increased use of air conditioning, particularly along the coast.</p>
+        <p>Rainfall: Varies – The northern Hajar Mountains and the southern Dhofar region receive more rainfall, with Salalah experiencing a monsoon season (khareef) from June to September. The monsoon helps sustain agriculture in Dhofar, but rainfall elsewhere is limited, making water conservation important.</p>
+        <p>Geography: The landscape is diverse, with coastal plains, mountain ranges, and vast stretches of desert, including the Rub' al Khali (Empty Quarter) in the west. The geographic diversity allows for limited agriculture in the highlands and supports a tourism industry focused on natural landscapes.</p>
+    </div>
+    <div id="qatar" class="country-detail hidden">
+        <button onclick="goBack()">← Back</button>
+        <h1>Qatar</h1>
+        <p>Weather Extremity: High – Qatar experiences an arid desert climate, with very hot summers reaching up to 45°C (113°F), and mild winters with temperatures averaging around 15-25°C (59-77°F). The extreme heat makes outdoor activities challenging and necessitates heavy use of air conditioning, increasing energy demand.</p>
+        <p>Humidity: High – Coastal areas experience high humidity, particularly during the summer months, due to proximity to the Arabian Gulf. High humidity exacerbates the heat, making the climate uncomfortable and impacting the health of vulnerable populations.</p>
+        <p>Rainfall: Very Low – Annual rainfall is typically less than 75 mm, with most rain falling between December and April. The low rainfall makes Qatar reliant on desalination for its water supply, increasing energy needs and operational costs.</p>
+        <p>Geography: Qatar is mostly flat and low-lying, consisting of desert plains and small hills, with a significant portion of the country being coastal along the Arabian Gulf. The flat landscape limits the potential for diverse agricultural activities and makes the country reliant on food imports.</p>
+    </div>
+    <div id="syria" class="country-detail hidden">
+        <button onclick="goBack()">← Back</button>
+        <h1>Syria</h1>
+        <p>Weather Extremity: Medium – Syria has a diverse climate, with a Mediterranean climate along the coast (hot, dry summers and mild, wet winters), and an arid desert climate inland. Summer temperatures average 30-40°C (86-104°F), while winters vary from 0-15°C (32-59°F). The varied climate supports a range of agricultural activities, but extreme summer heat in inland areas can stress water resources.</p>
+        <p>Humidity: Medium – Coastal regions such as Latakia experience higher humidity levels, while the interior is much drier. High humidity along the coast supports certain types of agriculture, while low humidity inland makes water scarcity more pronounced.</p>
+        <p>Rainfall: Moderate to Low – Coastal areas receive up to 800 mm of rain annually, while inland desert areas receive less than 200 mm. The disparity in rainfall creates challenges for consistent water supply and agricultural production, particularly in the drier interior regions.</p>
+        <p>Geography: The country includes coastal plains, mountain ranges, and arid desert areas. The Euphrates River is a significant geographic feature providing some fertile agricultural land. The variation in geography supports diverse ecosystems but also complicates infrastructure development.</p>
+    </div>
+    <div id="uae" class="country-detail hidden">
+        <button onclick="goBack()">← Back</button>
+        <h1>UAE</h1>
+        <p>Weather Extremity: High – The UAE has a desert climate characterized by very hot and humid summers, with temperatures reaching 45-50°C (113-122°F). Winters are milder, with temperatures between 15-25°C (59-77°F). The extreme summer heat leads to increased reliance on air conditioning, impacting energy consumption and carbon emissions.</p>
+        <p>Humidity: High – Coastal cities like Dubai and Abu Dhabi experience high humidity during summer, reaching up to 90%, while inland desert areas are much drier. High humidity levels exacerbate heat stress, especially in urban areas, necessitating cooling solutions and impacting residents' comfort.</p>
+        <p>Rainfall: Very Low – Rainfall is sparse, averaging around 100 mm per year, and mainly occurs during the winter months. The low rainfall necessitates significant investments in desalination to meet water demands, making water production costly and energy-intensive.</p>
+        <p>Geography: The UAE features vast desert areas, coastal plains along the Arabian Gulf, and mountainous regions in the northern part of the country. The geographic diversity supports a mix of tourism, agriculture (in limited areas), and urban development, but water scarcity remains a significant issue.</p>
+    </div>
+    <div id="yemen" class="country-detail hidden">
+        <button onclick="goBack()">← Back</button>
+        <h1>Yemen</h1>
+        <p>Weather Extremity: High – Yemen has an arid to semi-arid climate. The coastal Tihama region experiences extremely high temperatures, often exceeding 40°C (104°F) in summer. The highlands are more moderate, with temperatures ranging from 15-25°C (59-77°F), and can even drop below freezing during winter in the higher elevations. The varied climate affects agricultural productivity, with the highlands being more suitable for farming compared to the arid coastal plains.</p>
+        <p>Humidity: High along the coast – The coastal areas, especially around the Red Sea and Arabian Sea, are very humid. The highlands have lower humidity, creating a more comfortable climate compared to the coastal plains. High coastal humidity impacts daily living conditions and agricultural practices.</p>
+        <p>Rainfall: Varies – The highlands receive more rainfall, ranging from 300-800 mm annually, with two rainy seasons (spring and summer). The coastal and desert areas receive minimal rain. Rainfall supports agriculture in the highlands but water scarcity remains a significant challenge in the arid regions.</p>
+        <p>Geography: Yemen's landscape is diverse, ranging from coastal plains along the Red Sea, mountainous highlands in the west, to the Rub' al Khali desert in the east. The varied geography supports different agricultural activities but complicates infrastructure development and transportation.</p>
+    </div>
+    <div id="turkey" class="country-detail hidden">
+        <button onclick="goBack()">← Back</button>
+        <h1>Turkey</h1>
+        <p>Weather Extremity: Medium – Turkey has diverse climates due to its varied geography. The coastal areas along the Mediterranean and Aegean experience hot, dry summers (30-40°C or 86-104°F) and mild, wet winters. Inland areas, particularly central Anatolia, have a continental climate with cold, snowy winters and hot summers. The diverse climate supports a wide range of agricultural products, from olives to grains, but also creates challenges for water management.</p>
+        <p>Humidity: High along coastal areas – Coastal regions like the Aegean and Black Sea experience high humidity, especially in the summer, while inland regions are significantly drier. High humidity supports agriculture in coastal areas, while drier conditions inland make irrigation crucial for farming.</p>
+        <p>Rainfall: Varies – Coastal areas, particularly along the Black Sea, receive high rainfall (1,000-2,500 mm annually), while central regions receive less, around 300-400 mm per year. The variation in rainfall affects agricultural practices and water resource management across the country.</p>
+        <p>Geography: Turkey's geography includes coastal plains, mountain ranges (such as the Taurus and Pontic mountains), and large plateaus, resulting in diverse climates and ecosystems. The varied geography supports a wide range of economic activities, from tourism to agriculture, but also presents challenges in infrastructure and development.</p>
+    </div>
+    <div id="palestine" class="country-detail hidden">
+        <button onclick="goBack()">← Back</button>
+        <h1>Palestine</h1>
+        <p>Weather Extremity: Medium – Palestine has a Mediterranean climate with hot, dry summers (average temperatures of 25-35°C or 77-95°F) and cool, wet winters, particularly along the coast and in the central highlands. Inland areas have a more arid climate. The climate supports a variety of crops, including olives and citrus, but water availability is a significant constraint.</p>
+        <p>Humidity: High – Coastal areas such as Gaza experience high humidity during the summer, while inland regions are drier with a more arid climate. High humidity near the coast supports certain crops but also makes the summer heat more uncomfortable for residents.</p>
+        <p>Rainfall: Moderate – Coastal and central areas receive moderate rainfall (around 400-700 mm annually), mostly during the winter months from November to March. Rainfall supports agriculture but is insufficient to meet all water needs, necessitating careful water management and irrigation.</p>
+        <p>Geography: Palestine features a variety of landscapes, including coastal plains, central highlands, and parts of the Jordan Rift Valley, making the climate diverse across different regions. The varied geography supports diverse agricultural activities but also presents challenges for water distribution and infrastructure development.</p>
+    </div>
+    <div id="algeria" class="country-detail hidden">
+        <button onclick="goBack()">← Back</button>
+        <h1>Algeria</h1>
+        <p>Weather Extremity: Medium – Algeria's climate varies significantly from north to south. The northern coastal region experiences a Mediterranean climate with hot, dry summers (25-35°C or 77-95°F) and mild, wet winters. The vast Sahara region, which covers the majority of Algeria, has an extremely arid climate with temperatures exceeding 45°C (113°F) during summer. The climate variation supports diverse agricultural activities in the north, but the arid south is largely uninhabitable.</p>
+        <p>Humidity: Low – The majority of Algeria, particularly the desert areas, experiences low humidity. Coastal areas have higher humidity, particularly in the summer. Low humidity inland limits agricultural potential, while coastal humidity supports limited farming activities.</p>
+        <p>Rainfall: Varies – Northern regions receive moderate rainfall (400-1,000 mm annually), whereas the Sahara receives less than 50 mm of rainfall per year. The disparity in rainfall creates challenges for water availability and agricultural productivity, especially in the arid southern regions.</p>
+        <p>Geography: Algeria's geography includes the coastal Tell Atlas mountain range, the vast Sahara Desert, and steppe-like high plateaus, leading to varied climates across the country. The diverse geography supports a mix of agriculture, resource extraction, and tourism, but also presents challenges for infrastructure and water management.</p>
+    </div>
+    <div id="morocco" class="country-detail hidden">
+        <button onclick="goBack()">← Back</button>
+        <h1>Morocco</h1>
+        <p>Weather Extremity: Medium – Morocco has a Mediterranean climate in the north, with hot, dry summers (30-40°C or 86-104°F) and mild, wet winters. Inland regions, particularly near the Atlas Mountains, have more extreme temperature variations, with hot summers and cold winters, sometimes dropping below freezing. The diverse climate supports varied agricultural production, but also requires careful water management.</p>
+        <p>Humidity: Medium – Coastal regions experience moderate to high humidity, while inland areas are drier. The southern desert regions are particularly arid with very low humidity. Coastal humidity supports agriculture, while arid inland areas require significant irrigation for farming.</p>
+        <p>Rainfall: Moderate – The coastal and northern regions receive moderate rainfall (up to 800 mm annually), mainly during the winter months, while the desert regions receive minimal rainfall. Rainfall variation affects agricultural productivity, with the north being more suitable for farming compared to the arid south.</p>
+        <p>Geography: Morocco’s geography includes the coastal plains, the Atlas Mountains, and the Sahara Desert, creating a variety of microclimates within the country. The varied geography supports diverse economic activities, including agriculture, mining, and tourism, but also complicates infrastructure development.</p>
+    </div>
+    <div id="libya" class="country-detail hidden">
+        <button onclick="goBack()">← Back</button>
+        <h1>Libya</h1>
+        <p>Weather Extremity: High – Libya has a desert climate, with extremely hot summers, especially in the southern Sahara region where temperatures can exceed 50°C (122°F). The northern coastal areas experience a more moderate Mediterranean climate with mild, wet winters and hot, dry summers. The extreme heat in the south makes the region largely uninhabitable, limiting population centers to coastal areas.</p>
+        <p>Humidity: Low – Most of Libya is arid, with very low humidity except along the Mediterranean coast, where humidity is higher during the summer months. Low inland humidity limits agriculture, while coastal humidity supports limited farming and residential comfort.</p>
+        <p>Rainfall: Very Low – The coastal region receives limited rainfall, about 200-400 mm annually, primarily during the winter. The desert regions receive virtually no rainfall throughout the year. The scarcity of rainfall necessitates reliance on groundwater and desalination for water supply.</p>
+        <p>Geography: Libya is predominantly desert, with vast stretches of the Sahara Desert covering the country. Coastal plains are found in the north along the Mediterranean Sea. The reliance on coastal areas for habitation and agriculture creates pressure on limited resources, particularly water.</p>
+    </div>
+    <div id="tunisia" class="country-detail hidden">
+        <button onclick="goBack()">← Back</button>
+        <h1>Tunisia</h1>
+        <p>Weather Extremity: Medium – Tunisia has a Mediterranean climate in the north, with hot, dry summers (25-35°C or 77-95°F) and mild, wet winters. The southern regions are arid and form part of the Sahara Desert, with extremely high temperatures in the summer. The varied climate supports a range of agricultural activities, but the arid south requires irrigation for any productive use.</p>
+        <p>Humidity: Medium – Coastal areas have moderate to high humidity, while the southern desert regions are dry with very low humidity. Coastal humidity supports agriculture, while arid inland areas require significant water management for farming activities.</p>
+        <p>Rainfall: Varies – The northern regions receive moderate rainfall (400-800 mm annually), while the southern desert areas receive less than 100 mm of rain per year. Rainfall supports agriculture in the north, while the dry southern regions rely heavily on irrigation and face challenges in maintaining water resources.</p>
+        <p>Geography: Tunisia's geography ranges from fertile coastal plains in the north, to the Atlas Mountains, and the arid desert in the south, contributing to varied climate conditions. The geographic diversity supports agriculture, tourism, and mining, but also presents challenges for water distribution and infrastructure development.</p>
+    </div>
+    <div id="afghanistan" class="country-detail hidden">
+        <button onclick="goBack()">← Back</button>
+        <h1>Afghanistan</h1>
+        <p>Weather Extremity: High – Afghanistan has an arid to semi-arid climate, with very hot summers in the lowlands (temperatures exceeding 40°C or 104°F) and cold winters, especially in the highlands, where temperatures can drop well below freezing, and heavy snowfall is common. The extreme climate variations make agriculture challenging, particularly in the lowlands during summer and in the highlands during winter.</p>
+        <p>Humidity: Low – The majority of Afghanistan experiences low humidity due to its arid climate, particularly in the desert and semi-desert regions. Low humidity limits agricultural productivity and exacerbates water scarcity issues.</p>
+        <p>Rainfall: Varies – The mountainous areas receive more precipitation (up to 1,000 mm annually), mainly during winter and spring, while the arid plains receive less than 300 mm annually. Rainfall supports agriculture in mountainous areas, but the low precipitation in the plains requires irrigation to sustain farming.</p>
+        <p>Geography: Afghanistan features a diverse landscape, including the rugged Hindu Kush mountains, fertile valleys, and arid deserts, contributing to significant variations in climate. The challenging geography impacts transportation and infrastructure development, while the varied climate supports a range of agricultural activities in suitable areas.</p>
+    </div>
+    <div id="mauritania" class="country-detail hidden">
+        <button onclick="goBack()">← Back</button>
+        <h1>Mauritania</h1>
+        <p>Weather Extremity: High – Mauritania has an extremely arid climate with high temperatures throughout the year. Summer temperatures in the desert regions can exceed 45°C (113°F), while coastal areas are slightly cooler but still hot. Winters are mild, with temperatures ranging from 20-25°C (68-77°F). The extreme heat makes the desert regions largely uninhabitable, concentrating population in coastal areas and around water sources.</p>
+        <p>Humidity: Low – Inland areas are extremely dry, with very low humidity, whereas the coastal regions experience slightly higher humidity, especially during the cooler months. Low humidity limits agricultural activity and necessitates significant irrigation efforts to sustain farming.</p>
+        <p>Rainfall: Very Low – Rainfall is scarce, averaging less than 100 mm annually, mainly occurring during short bursts in the summer months. Droughts are common, contributing to desertification and limiting agricultural productivity.</p>
+        <p>Geography: Mauritania's landscape is dominated by the Sahara Desert, with large expanses of sand dunes and arid plains. The Atlantic coast features some small fishing communities. The harsh desert environment limits economic activity primarily to coastal areas, with fishing and mining being important industries.</p>
+    </div>
+
+    <script>
+        // Embedded JavaScript with transition effects
+        function showCountry(countryId) {
+            document.getElementById('main').style.opacity = '0';
+            setTimeout(function() {
+                document.getElementById('main').style.display = 'none';
+                document.getElementById(countryId).style.display = 'block';
+                setTimeout(function() {
+                    document.getElementById(countryId).style.opacity = '1';
+                }, 10);
+            }, 500);
+        }
+
+        function goBack() {
+            var details = document.querySelectorAll('.country-detail');
+            details.forEach(detail => {
+                detail.style.opacity = '0';
+            });
+            setTimeout(function() {
+                details.forEach(detail => {
+                    detail.style.display = 'none';
+                });
+                document.getElementById('main').style.display = 'flex';
+                setTimeout(function() {
+                    document.getElementById('main').style.opacity = '1';
+                }, 10);
+            }, 500);
+        }
+
+        function filterCountries() {
+    let input = document.getElementById('searchBar').value.toLowerCase();
+    let countries = document.querySelectorAll('.country-box');
+    let found = false;
+
+    countries.forEach(country => {
+        let countryName = country.textContent.toLowerCase();
+        if (countryName.includes(input)) {
+            country.style.display = "flex";
+            found = true;
+        } else {
+            country.style.display = "none";
+        }
+    });
+
+    let notFoundMessage = document.getElementById('notFoundMessage');
+    if (found) {
+        notFoundMessage.style.display = "none";
+    } else {
+        notFoundMessage.style.display = "block";
+    }
+}
+    </script>
+</body>
+</html>
